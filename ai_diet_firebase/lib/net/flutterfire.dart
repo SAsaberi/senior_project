@@ -1,7 +1,14 @@
+import 'package:ai_diet_firebase/net/userinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-final idUsers= FirebaseFirestore.instance.collection("users").doc();
+final user= FirebaseAuth.instance.currentUser!;
+String currentuser= user.email!.toString() ;
+final idUsers= FirebaseFirestore.instance.collection("users").doc(currentuser);
+
+
+
 
 
 Future<bool> SignUp(String email, String password, String name, String phonenumber) async {
@@ -37,6 +44,7 @@ Future addUserDetails(String name, int phonenumber,String email) async{
   });
 
 
+
 }
 
 
@@ -51,3 +59,26 @@ Future <bool> addUserInfo(String dateOfBirth, String weight, String height) asyn
   });
   return true;
 }
+
+
+
+
+
+Future <bool> addTarWe(double weight) async{
+  await idUsers.update({
+    "Target Weight": weight
+  });
+  return true;
+}
+
+
+Future <bool> addactivity(String activitylevel) async{
+  await idUsers.update({
+    "Activity Level": activitylevel
+  });
+  return true;
+}
+
+
+
+

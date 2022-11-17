@@ -1,18 +1,19 @@
+import 'package:ai_diet_firebase/activitylevel.dart';
 import 'package:ai_diet_firebase/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
-void main() {
-  runApp(const MaterialApp(home: MyApp()));
-}
+import 'net/flutterfire.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+
+class AddTargetWeight extends StatefulWidget {
+  const AddTargetWeight({Key? key}) : super(key: key);
   @override
-  _MyAppState createState() => _MyAppState();
+  _AddTargetWeightState createState() => _AddTargetWeightState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AddTargetWeightState extends State<AddTargetWeight> {
   late WeightSliderController _controller;
   double _weight = 30.0;
 
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 child: Text(
                   'WHAT IS YOUR TARGET WEIGHT?',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
                   ),
@@ -90,23 +92,27 @@ class _MyAppState extends State<MyApp> {
             height: 10,
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(300, 0, 0, 0),
-              child: IconButton(
-                onPressed: () async {
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfileScreen(),
-                      ),
-                    );
-                  }
-                },
-                icon: Icon(
-                  Icons.arrow_forward_outlined,
-                  size: 50,
-                ),
-              )),
+            padding: EdgeInsets.fromLTRB(300, 0, 0, 0),
+            child: IconButton(
+              onPressed: () async{
+                bool shouldNavigate =
+                await addTarWe(
+                    _weight);
+                if(shouldNavigate){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ActvityLevell(),
+                    ),
+                  );
+                }
+              },
+              icon: Icon(
+                Icons.arrow_forward_outlined,
+                size: 50,
+              ),
+            ),
+          ),
           SizedBox(
             height: 10,
           )

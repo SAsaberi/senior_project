@@ -1,12 +1,14 @@
 import 'package:ai_diet_firebase/profilescreen.dart';
+import 'package:ai_diet_firebase/target_weight.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:intl/intl.dart';
 import 'package:gender_picker/gender_picker.dart';
 import 'package:gender_picker/source/enums.dart';
-import 'package:ai_diet_firebase/target_weight.dart';
 
 import 'net/flutterfire.dart';
+
+
 
 class GetInfo extends StatefulWidget {
   const GetInfo({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class _HomeState extends State<GetInfo> {
   TextEditingController _date = TextEditingController();
   TextEditingController _weight = TextEditingController();
   TextEditingController _height = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class _HomeState extends State<GetInfo> {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlue,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       )),
@@ -123,7 +127,7 @@ class _HomeState extends State<GetInfo> {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlue,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       )),
@@ -170,7 +174,7 @@ class _HomeState extends State<GetInfo> {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlue,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       )),
@@ -217,7 +221,7 @@ class _HomeState extends State<GetInfo> {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlue,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       )),
@@ -237,14 +241,15 @@ class _HomeState extends State<GetInfo> {
               Container(
                   padding: EdgeInsets.fromLTRB(300, 0, 0, 0),
                   child: IconButton(
-                    onPressed: () async {
-                      bool shouldNavigate = await addUserInfo(
+                    onPressed: () async{
+                      bool shouldNavigate =
+                      await addUserInfo(
                           _date.text, _weight.text, _height.text);
-                      if (shouldNavigate) {
+                      if(shouldNavigate){
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MyApp(),
+                            builder: (context) => AddTargetWeight(),
                           ),
                         );
                       }
@@ -253,10 +258,9 @@ class _HomeState extends State<GetInfo> {
                       Icons.arrow_forward_outlined,
                       size: 50,
                     ),
-                  )),
-              SizedBox(
-                height: 10,
-              )
+                  )
+              ),
+              SizedBox(height: 10,)
             ],
           )
         ],
@@ -276,9 +280,9 @@ Widget getWidget(bool showOtherGender, bool alignVertical) {
       // to show what's selected on app opens, but by default it's Male
       selectedGender: Gender.Male,
       selectedGenderTextStyle:
-          TextStyle(color: Color(0xFF8b32a8), fontWeight: FontWeight.bold),
+      TextStyle(color: Color(0xFF8b32a8), fontWeight: FontWeight.bold),
       unSelectedGenderTextStyle:
-          TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
+      TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
       onChanged: (Gender? gender) {
         print(gender);
       },
@@ -294,3 +298,27 @@ Widget getWidget(bool showOtherGender, bool alignVertical) {
     ),
   );
 }
+
+
+// this is for replacing buttons with containers
+// Padding(
+//   padding: EdgeInsets.fromLTRB(20, 0 , 0 , 35),
+//   child: Container(
+//     padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+//     decoration: BoxDecoration(
+//         color: Colors.lightBlue,
+//         borderRadius: BorderRadius.all((Radius.circular(20)))
+//     ),
+//     child: Text(
+//       " Once a Week ",
+//       style: TextStyle(
+//         color: Colors.white,
+//         fontSize: 20,
+//       ),
+//     ),
+//   ),
+// ),
+
+
+
+

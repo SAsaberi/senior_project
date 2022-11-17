@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:ai_diet_firebase/net/flutterfire.dart';
+import 'net/userinfo.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -10,454 +14,376 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  int _selectedIndex = 0;
+
+
+
+
+
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Progress',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Schedule',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: MyProfile',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
-
-
-      body:Padding(
+      backgroundColor: Colors.white,
+      body: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 0.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children:<Widget> [
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Image.asset('assets/logo.png',scale: 7,),
-              ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 40.0,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.green,
-                      child: Text(
-                        'MyProfile',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: w * 0.8,
+                  height: h * 0.22,
+                  child: Image.asset('assets/logo1.png'),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                        color: Colors.green,
+                        child: Text(
+                          'User Information',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            letterSpacing: 2.0,
+                            fontSize: 26.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'NAME',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
-                        ),
+                    PopupMenuButton(
+                        icon: Icon(Icons.settings),
+                        itemBuilder: (context) {
+                          return [
+                            PopupMenuItem<int>(
+                              value: 1,
+                              child: Text("Settings"),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 2,
+                              child: Text("Logout"),
+                            ),
+                          ];
+                        },
+                        onSelected: (value) {
+                          if (value == 0) {
+                            print("Settings menu is selected.");
+                          } else if (value == 1) {
+                            print("Logout menu is selected.");
+                          }
+                        }),
+                  ],
+                ),
+                Divider(),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {
+                        },
+                        child: Text('NAME', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    'FirstName LastName',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'AGE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
-                        ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 45.0,
+                      width: w/1.5,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 15, 0, 0),
+                        child: GetName(),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '22',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'WEIGHT',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
-                        ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('AGE', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '95 kg',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'HEIGHT',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
-                        ),
+                  ],
+                ),
+                SizedBox(
+                  height: 14.0,
+                  // child: Text(
+                  //   userName,
+                  // ),
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(
+                  height: 35.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('WEIGHT', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '175 cm',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'BMI',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
+                  ],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      SizedBox(
+                        height: 45.0,
+                        width: w/3,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 15, 0, 0),
+                          child: GetW(),
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '....',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.lightBlue,
-                      child: Text(
-                        'BMR',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
-                        ),
+                    ]
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('HEIGHT', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14.0,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '.....',
-                    style: TextStyle(
-                      letterSpacing: 2.0,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 35.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 40, 5),
-                      color: Colors.red,
-                      child: Text(
-                        'DISEASE LIST',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontSize: 26.0,
-                          color: Colors.white,
+                  ],
+                ),
+                Row(
+                    children:[
+                      SizedBox(
+                        height: 45.0,
+                        width: w/3,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                          child: GetH(),
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 7.0),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(5, 0, 150, 0),
-                    color: Colors.red,
-                    child: Text(
-                      '1',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 26.0,
-                        color: Colors.white,
+                    ]
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('BMI', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 7.0),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(5, 0, 150, 0),
-                    color: Colors.red,
-                    child: Text(
-                      '2',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 26.0,
-                        color: Colors.white,
+                  ],
+                ),
+                SizedBox(
+                  height: 14.0,
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(
+                  height: 35.0,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 200, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.lightBlue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('BMR', style: TextStyle(fontSize: 29)),
                       ),
                     ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Click asdfghjhgf ",
-                        ),
-                        WidgetSpan(
-                          child: Icon(Icons.edit, size: 14),
-                        ),
-                      ],
+                  ],
+                ),
+                SizedBox(
+                  height: 14.0,
+                ),
+                Row(
+                  children: [
+                    Container(),
+                  ],
+                ),
+                SizedBox(height: 35.0),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 100, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
+                            primary: Colors.red,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            )),
+                        onPressed: () {},
+                        child: Text('DISEASE LIST',
+                            style: TextStyle(fontSize: 29)),
+                      ),
                     ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                  ],
+                ),
+                SizedBox(height: 7.0),
+              ],
+            ),
+          ],
         ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              size: 35.0,
+            ),
             label: 'Home',
+            backgroundColor: Colors.orange,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_rounded),
-            label: 'Diet Schedule',
+            icon: Icon(
+              Icons.analytics_outlined,
+              size: 35.0,
+            ),
+            label: 'Progress',
+            backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_rounded),
-            label: 'Analytics',
+            icon: Icon(
+              Icons.calendar_today,
+              size: 35.0,
+            ),
+            label: 'Schedule',
+            backgroundColor: Colors.indigo,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(
+              Icons.person,
+              size: 35.0,
+            ),
+            label: 'MyProfile',
+            backgroundColor: Colors.blue,
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
   }

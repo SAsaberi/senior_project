@@ -1,4 +1,5 @@
 import 'package:ai_diet_firebase/profilescreen.dart';
+import 'package:ai_diet_firebase/showoptions.dart';
 import 'package:flutter/material.dart';
 
 import 'net/flutterfire.dart';
@@ -142,7 +143,7 @@ class _ActvityLevellState extends State<ActvityLevell> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
+                      builder: (context) => ShowOptions(),
                     ),
                   );
                 }

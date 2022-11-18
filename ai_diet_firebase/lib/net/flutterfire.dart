@@ -2,6 +2,7 @@ import 'package:ai_diet_firebase/net/userinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 final user= FirebaseAuth.instance.currentUser!;
 String currentuser= user.email!.toString() ;
@@ -51,13 +52,49 @@ Future addUserDetails(String name, int phonenumber,String email) async{
 
 
 
-Future <bool> addUserInfo(String dateOfBirth, String weight, String height) async{
+Future <bool> addUserInfo(String dateOfBirth, String weight, String height, String gender) async{
+  agecalc(dateOfBirth);
   await idUsers.update({
     "date of birth": dateOfBirth,
+    "age": age,
     "weight": double.parse(weight) ,
     "height": double.parse(height),
+    "Gender":gender,
   });
+
   return true;
+}
+
+int age=0;
+int agecalc (String DOB)
+{
+  var list=DOB.split('/');
+
+  int month=int.parse(list[0]);
+  int day=int.parse(list[1]);
+  int year=int.parse(list[2]);
+
+  var now = new DateTime.now();
+  var formatter = new DateFormat('MM/dd/yyyy');
+  String formattedDate = formatter.format(now);
+
+  var list1=formattedDate.split('/');
+
+  int month1=int.parse(list1[0]);
+  int day1=int.parse(list1[1]);
+  int year1=int.parse(list1[2]);
+
+  age=year1-year;
+  age=age-1;
+
+  if(month<month1 || month==month1 && day<=day1)
+  {
+    age=age+1;
+  }
+  print(age);
+  print("its working");
+  return age;
+
 }
 
 

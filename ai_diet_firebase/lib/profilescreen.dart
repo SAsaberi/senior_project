@@ -1,3 +1,4 @@
+import 'package:ai_diet_firebase/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -14,38 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 0;
 
-
-
-
-
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Progress',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Schedule',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: MyProfile',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     SizedBox(
                       height: 45.0,
-                      width: w/1.5,
+                      // width: w/1.5,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(15, 15, 0, 0),
                         child: GetName(),
@@ -163,17 +133,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             )),
-                        onPressed: () {},
+                        onPressed: () async{
+
+
+                        },
                         child: Text('AGE', style: TextStyle(fontSize: 29)),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 14.0,
-                  // child: Text(
-                  //   userName,
-                  // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 45.0,
+                      // width: w/1.5,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 15, 0, 0),
+                        child: GetAge(),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   children: [
@@ -181,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 35.0,
+                  height: 10.0,
                 ),
                 Row(
                   children: [
@@ -341,50 +321,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 SizedBox(height: 7.0),
+
               ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 35.0,
-            ),
-            label: 'Home',
-            backgroundColor: Colors.orange,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.analytics_outlined,
-              size: 35.0,
-            ),
-            label: 'Progress',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_today,
-              size: 35.0,
-            ),
-            label: 'Schedule',
-            backgroundColor: Colors.indigo,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              size: 35.0,
-            ),
-            label: 'MyProfile',
-            backgroundColor: Colors.blue,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
-      ),
+
+
     );
   }
 }

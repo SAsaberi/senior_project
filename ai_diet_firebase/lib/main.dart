@@ -1,3 +1,4 @@
+import 'package:ai_diet_firebase/showoptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   print(user);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => ProfileScreen()
+                        MaterialPageRoute(builder: (context) => ShowOptions()
                         )
                     );
                   }

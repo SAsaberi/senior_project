@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   gender_picker: ^1.1.0
   vertical_weight_slider: ^2.4.0
+  pedometer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

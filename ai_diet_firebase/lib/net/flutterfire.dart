@@ -91,8 +91,8 @@ int agecalc (String DOB)
   {
     age=age+1;
   }
-  print(age);
-  print("its working");
+  //print(age.toString()+"this in age calculator");
+
   return age;
 
 }

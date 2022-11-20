@@ -261,16 +261,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 14.0,
+
+
+                Row(
+                    children:[
+                      SizedBox(
+                        height: 45.0,
+                        width: w/3,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                          child: GetBMI(),
+                        ),
+                      ),
+                    ]
                 ),
+
                 Row(
                   children: [
                     Container(),
                   ],
                 ),
                 SizedBox(
-                  height: 35.0,
+                  height: 10.0,
                 ),
                 Row(
                   children: [
@@ -291,15 +303,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 14.0,
+                Row(
+                    children:[
+                      SizedBox(
+                        height: 45.0,
+                        width: w/3,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                          child: GetBMR(),
+                        ),
+                      ),
+                    ]
                 ),
                 Row(
                   children: [
                     Container(),
                   ],
                 ),
-                SizedBox(height: 35.0),
+                SizedBox(
+                  height: 10.0,
+                ),
+
+
                 Row(
                   children: [
                     Padding(

@@ -34,7 +34,9 @@ class _ProgressPageState extends State<ProgressPage> {
                   height: h * 0.2,
                   child: Image.asset('assets/logo1.png'),
                 ),
-                Divider(),
+                Divider(
+                  height: 6,
+                ),
                 SizedBox(
                   height: 12,
                 ),

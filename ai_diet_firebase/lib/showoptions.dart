@@ -1,3 +1,4 @@
+import 'package:ai_diet_firebase/plan.dart';
 import 'package:ai_diet_firebase/profilescreen.dart';
 import 'package:ai_diet_firebase/progress_page.dart';
 import 'package:ai_diet_firebase/test.dart';
@@ -19,10 +20,7 @@ class _ShowOptionsState extends State<ShowOptions> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ProgressPage(),
-    Text(
-      'Index 2: Schedule',
-      style: optionStyle,
-    ),
+    DietPlan(),
     ProfileScreen(),
   ];
 

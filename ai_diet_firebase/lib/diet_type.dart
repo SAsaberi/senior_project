@@ -1,4 +1,5 @@
-import 'package:ai_diet_firebase/diet_type.dart';
+import 'package:ai_diet_firebase/allergies.dart';
+import 'package:ai_diet_firebase/allergiesUI.dart';
 import 'package:ai_diet_firebase/profilescreen.dart';
 import 'package:ai_diet_firebase/showoptions.dart';
 import 'package:flutter/material.dart';
@@ -7,35 +8,31 @@ import 'net/flutterfire.dart';
 
 const List<Widget> activty = <Widget>[
   Text(
-    'No Activity',
+    'Normal',
     style: TextStyle(fontSize: 25),
   ),
   Text(
-    'Once a Week',
+    'Keto',
     style: TextStyle(fontSize: 25),
   ),
   Text(
-    '2 to 3 Times a Week',
+    'Vegan',
     style: TextStyle(fontSize: 25),
   ),
-  Text(
-    "4 to 5 Times a Week",
-    style: TextStyle(fontSize: 25),
-  )
 ];
 
-class ActvityLevell extends StatefulWidget {
-  const ActvityLevell({
+class DietType extends StatefulWidget {
+  const DietType({
     super.key,
   });
 
   @override
-  State<ActvityLevell> createState() => _ActvityLevellState();
+  State<DietType> createState() => _DietType();
 }
 
-class _ActvityLevellState extends State<ActvityLevell> {
-  final List<bool> _selectedFruits = <bool>[false, false, false, false];
-  String activitylevel = "";
+class _DietType extends State<DietType> {
+  final List<bool> _selectedFruits = <bool>[false, false, false];
+  String dietType = "";
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +51,15 @@ class _ActvityLevellState extends State<ActvityLevell> {
             height: h * 0.28,
             child: Image.asset('assets/logo.png'),
           ),
+          Divider(
+            height: 6,
+          ),
+          SizedBox(
+            height: 12,
+          ),
           Container(
             child: Text(
-              'WHAT ARE YOUR PHYSICAL ACTIVITY LEVELS PER WEEK?..',
+              'CHOOSE YOUR DIET PLAN TYPE!..',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -64,7 +67,7 @@ class _ActvityLevellState extends State<ActvityLevell> {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           Center(
             child: Column(
@@ -82,15 +85,12 @@ class _ActvityLevellState extends State<ActvityLevell> {
                         _selectedFruits[i] = i == index;
                       }
                       if (index == 0) {
-                        activitylevel = "No Activity";
+                        dietType = "Normal";
                       } else if (index == 1) {
-                        activitylevel = "Once a Week";
+                        dietType = "Keto";
                       } else if (index == 2) {
-                        activitylevel = "2 to 3 Times a Week";
-                      } else if (index == 3) {
-                        activitylevel = "4 to 5 Times a Week";
+                        dietType = "Vegan";
                       }
-                      ;
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -113,16 +113,20 @@ class _ActvityLevellState extends State<ActvityLevell> {
           SizedBox(
             height: 30,
           ),
+          SizedBox(
+            height: 12,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(300, 0, 0, 0),
             child: IconButton(
+              alignment: Alignment.bottomRight,
               onPressed: () async {
-                bool shouldNavigate = await addactivity(activitylevel);
+                bool shouldNavigate = await addactivity(dietType);
                 if (shouldNavigate) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DietType(),
+                      builder: (context) => AllergiesUI(),
                     ),
                   );
                 }

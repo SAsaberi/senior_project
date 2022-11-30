@@ -1,7 +1,7 @@
 import 'package:ai_diet_firebase/plan.dart';
 import 'package:ai_diet_firebase/profilescreen.dart';
 import 'package:ai_diet_firebase/progress_page.dart';
-import 'package:ai_diet_firebase/test.dart';
+import 'package:ai_diet_firebase/step_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_diet_firebase/home_page.dart';
 
@@ -15,8 +15,12 @@ class ShowOptions extends StatefulWidget {
 class _ShowOptionsState extends State<ShowOptions> {
   int _selectedIndex = 0;
 
+
+
+
+
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ProgressPage(),
@@ -29,13 +33,13 @@ class _ShowOptionsState extends State<ShowOptions> {
       _selectedIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -45,6 +49,7 @@ class _ShowOptionsState extends State<ShowOptions> {
             ),
             label: 'Home',
             backgroundColor: Colors.orange,
+
           ),
           BottomNavigationBarItem(
             icon: Icon(

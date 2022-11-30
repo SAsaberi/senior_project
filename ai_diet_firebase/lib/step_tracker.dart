@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ai_diet_firebase/step_tracker.dart';
-import 'package:ai_diet_firebase/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -14,11 +13,10 @@ String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
 
-void main() {
-  runApp(StepTracker());
-}
+
 
 class StepTracker extends StatefulWidget {
+  const StepTracker({super.key});
   @override
   _StepTrackerState createState() => _StepTrackerState();
 }
@@ -107,8 +105,8 @@ class _StepTrackerState extends State<StepTracker> {
                 _status == 'walking'
                     ? Icons.directions_walk
                     : _status == 'stopped'
-                        ? Icons.accessibility_new
-                        : Icons.error,
+                    ? Icons.accessibility_new
+                    : Icons.error,
                 size: 100,
               ),
               Center(

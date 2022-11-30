@@ -1,23 +1,29 @@
-import 'package:ai_diet_firebase/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ai_diet_firebase/net/flutterfire.dart';
+import 'net/generatingdiet.dart';
 import 'net/userinfo.dart';
 
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfileScreen> createState() => ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreenState extends State<ProfileScreen> {
 
+
+  TextEditingController _weight = TextEditingController();
+  TextEditingController _height = TextEditingController();
 
   @override
+
+
+
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
@@ -153,6 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: GetAge(),
                       ),
                     ),
+
                   ],
                 ),
                 Row(
@@ -193,6 +200,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: GetW(),
                         ),
                       ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+
+                          children: [
+                            IconButton(
+                                onPressed:(){
+                                  openDialogueBox(context);
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                )
+                            )
+                          ],
+                        ),
+                      )
                     ]
                 ),
                 Row(
@@ -232,6 +255,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: GetH(),
                         ),
                       ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+
+                          children: [
+                            IconButton(
+                                onPressed:(){
+                                  openDialogueBox1(context);
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                )
+                            )
+                          ],
+                        ),
+                      )
                     ]
                 ),
                 Row(
@@ -262,7 +301,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
 
-
                 Row(
                     children:[
                       SizedBox(
@@ -270,7 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         width: w/3,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                          child: GetBMI(),
+                          child:  GetBMI(),
                         ),
                       ),
                     ]
@@ -323,8 +361,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   height: 10.0,
                 ),
-
-
                 Row(
                   children: [
                     Padding(
@@ -355,5 +391,117 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
     );
+  }
+
+
+  openDialogueBox(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit User Details'),
+            content: Container(
+              height: 150,
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _weight,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(hintText: 'Weight'),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  submitAction(context);
+                  Navigator.pop(context);
+                },
+                child: Text('Submit'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+              )
+            ],
+          );
+        });
+  }
+
+  submitAction(BuildContext context) async{
+    // updatedData(_weight.text);
+    idUsers.update({
+      "weight":double.parse(_weight.text),
+      "Diet Set":false,
+    });
+    await calcBMI();
+    await calcBMR();
+    await getw();
+    await GeneratingDiet();
+
+// print("$BMI in submit acttion");
+    setState(()
+    {
+    });
+    _weight.clear();
+
+  }
+
+  openDialogueBox1(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit User Details'),
+            content: Container(
+              height: 150,
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _height,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(hintText: 'Height'),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  submitAction1(context);
+                  Navigator.pop(context);
+                },
+                child: Text('Submit'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+              )
+            ],
+          );
+        });
+  }
+
+  submitAction1(BuildContext context) async{
+    // updatedData(_weight.text);
+    idUsers.update({
+      "height":double.parse(_height.text),
+      "Diet Set":false,
+    });
+    await calcBMI();
+    await calcBMR();
+    await geth();
+    await GeneratingDiet();
+// print("$BMI in submit acttion");
+    setState(()
+    {
+    });
+    _height.clear();
+
   }
 }

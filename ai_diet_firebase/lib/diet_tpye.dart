@@ -1,7 +1,7 @@
-import 'package:ai_diet_firebase/allergies.dart';
-import 'package:ai_diet_firebase/allergiesUI.dart';
+
 import 'package:ai_diet_firebase/profilescreen.dart';
 import 'package:ai_diet_firebase/showoptions.dart';
+import 'package:ai_diet_firebase/userallergy.dart';
 import 'package:flutter/material.dart';
 
 import 'net/flutterfire.dart';
@@ -85,11 +85,11 @@ class _DietType extends State<DietType> {
                         _selectedFruits[i] = i == index;
                       }
                       if (index == 0) {
-                        dietType = "Normal";
+                        dietType = "Normal Diet";
                       } else if (index == 1) {
-                        dietType = "Keto";
+                        dietType = "Keto Diet";
                       } else if (index == 2) {
-                        dietType = "Vegan";
+                        dietType = "Vegan Diet";
                       }
                     });
                   },
@@ -121,12 +121,13 @@ class _DietType extends State<DietType> {
             child: IconButton(
               alignment: Alignment.bottomRight,
               onPressed: () async {
-                bool shouldNavigate = await addactivity(dietType);
+                bool shouldNavigate =
+                await addDiet(dietType);
                 if (shouldNavigate) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllergiesUI(),
+                      builder: (context) => UserAllergy(),
                     ),
                   );
                 }
